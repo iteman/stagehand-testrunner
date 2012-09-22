@@ -39,6 +39,7 @@
 namespace Stagehand\TestRunner\Runner;
 
 use PHPSpec\Runner\ReporterEvent;
+use PHPSpec\Specification\ExampleGroup;
 use PHPSpec\World;
 
 use Stagehand\TestRunner\Runner\PHPSpecRunner\ExampleFactory;
@@ -74,6 +75,7 @@ class PHPSpecRunner extends Runner
         $options['specFile'] = $suite;
         $options['c'] = $this->terminal->shouldColor();
         $options['failfast'] = $this->shouldStopOnFailure();
+        $options['include-matchers'] = array();
 
         $reporter = new Reporter();
 
@@ -103,7 +105,7 @@ class PHPSpecRunner extends Runner
         $oldErrorHandler = set_error_handler(function () {});
         restore_error_handler();
 
-        $exampleRunner = new ExampleRunner();
+        $exampleRunner = new ExampleRunner(new ExampleGroup());
         $exampleRunner->setExampleFactory(new ExampleFactory($this->testTargetRepository));
         $runner = new \PHPSpec\Runner\Cli\Runner();
         $runner->setLoader(new SpecLoaderFactory());

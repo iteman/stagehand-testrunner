@@ -48,13 +48,13 @@ use PHPSpec\Specification\ExampleGroup;
  */
 class ExampleRunner extends \PHPSpec\Specification\ExampleRunner
 {
-    public function run(ExampleGroup $exampleGroup, \PHPSpec\Runner\Reporter $reporter)
+    public function run(\PHPSpec\Runner\Reporter $reporter)
     {
         if (($reporter instanceof Reporter) && $reporter->checkFailFast()) {
             return;
         }
 
-        parent::run($exampleGroup, $reporter);
+        parent::run($reporter);
     }
 }
 
